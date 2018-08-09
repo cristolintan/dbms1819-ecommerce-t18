@@ -298,12 +298,32 @@ app.post('/send-email/:userId', function (req, res) {
               pass: 'team18tan'
           }
       });
+
+
+    var mailOptions={
+        to : req.body.email,
+        subject : "Order confirmation",
+        text : 'Your order has been successfuly received.<br>  Product Id: '+ req.body.id+'<br> Customer Name: '+ req.body.cust_name+'/n Phone: '+ req.body.phone +'/n Email: '+ req.body.email +'/n Customer Quantity: '+ req.body.quantity
+    }
+
+
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+		if(error){
+			// console.log(error);
+			// res.end("error");
+		}else{
+			// console.log("Message sent: " + response.message);
+			// res.end("sent");
+			res.render('emailsent');
+		}
+	});
       
-      let mailOptions = {
+      var mailOptions = {
           from: req.body.email, // sender address
           to: 'team18tanvillabrosa@gmail.com', // list of receivers
           subject: 'E-Commerce New Order!!!', // Subject line
-          text: 'Product Id: '+ req.body.id+'<br> Customer Name: '+ req.body.cust_name+'/n Phone: '+ req.body.phone +'/n Email: '+ req.body.email +'/n Customer Quantity: '+ req.body.quantity, // plain text body
+          text: 'Product Id: '+ req.body.id+'<br> Customer Name: '+ req.body.cust_name+'/n Phone: '+ req.body.phone +'/n Email: '+ req.body.email +'/n Customer Quantity: '+ req.body.quantity // plain text body
          // html body
       };
 
@@ -315,7 +335,8 @@ app.post('/send-email/:userId', function (req, res) {
 		  }
           
           console.log('Message %s sent: %s', info.messageId, info.response);
-			  res.render('success');
+		  res.render('success');
+
 		  });
       });
 
