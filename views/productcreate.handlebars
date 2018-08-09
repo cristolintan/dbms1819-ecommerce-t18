@@ -1,0 +1,81 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Products
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      
+		
+		<div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Products</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <form role="form" method="post" action="/product/submit">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Product Name</label>
+                  <input name="name" type="text" class="form-control" placeholder="Enter ..." required="required">
+                </div>
+				<div class="form-group">
+                  <label>Product Description</label>
+                  <input name="description" type="text" class="form-control" placeholder="optional">
+                </div>
+				<div class="form-group">
+                  <label>Product Tagline</label>
+                  <input name="tagline" type="text" class="form-control" placeholder="optional">
+                </div>
+				<div class="form-group">
+                  <label>Product Price</label>
+                  <input name="price" type="number" class="form-control" placeholder="Enter ..." required="required">
+                </div>
+				<div class="form-group">
+                  <label>Product Warranty</label>
+                  <input name="warranty" type="number" class="form-control" placeholder="optional(in days)">
+                </div>
+				<div class="form-group">
+                  <label>Product Category</label>
+                  <select name="category" class="form-control" required="required">
+				    
+				    {{#each categorydata}}
+                    <option value={{this.category_id}}>{{this.name}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+				<div class="form-group">
+				  <label>Product Brand</label>
+                  <select name="brand" class="form-control" required="required">
+				    
+				    {{#each branddata}}
+                    <option value={{this.brand_id}}>{{this.name}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+				<div class="form-group">
+                  <label>Product Picture</label>
+                  <input name="picture" type="text" class="form-control" placeholder="Use URL" required="required">
+                </div>
+				<div class="form-group">
+				   <button type="submit" class="btn bg-purple margin">Send</button>
+                </div>
+				
+
+              </form>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        
+		<!-- /.box-body -->
+         
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>

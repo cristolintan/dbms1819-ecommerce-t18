@@ -1,0 +1,190 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Products
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h2 class="box-title">Products for Sale</h2>
+        </div>
+        <div class="box-body">
+		
+		<div class="box-body">
+          <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Desktop Computers</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+				{{#each products1}}
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				<a href=/products/{{this.product_id}}>
+				<div class="info-box">
+				
+				<span class="info-box-icon bg-aqua"><img class="img-responsive" src={{this.picture}} alt="Product 1"></span>
+
+				<div class="info-box-content">
+				<span class="info-box-text">{{this.product_name}}</span>
+				<span class="info-box-number">P{{this.price}}</span>
+				</div>
+				
+				<!-- /.info-box-content -->
+				</div>
+				</a>
+				<!-- /.info-box -->
+				</div>
+        <!-- /.col -->
+				{{/each}}
+        
+        <!-- /.col -->
+       
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+		
+		<div class="box-body">
+          <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Mobile Phones</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+				{{#each products2}}
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				<a href=/products/{{this.product_id}}>
+				<div class="info-box">
+				
+				<span class="info-box-icon bg-aqua"><img class="img-responsive" src={{this.picture}} alt="Product 1"></span>
+
+				<div class="info-box-content">
+				<span class="info-box-text">{{this.product_name}}</span>
+				<span class="info-box-number">P{{this.price}}</span>
+				</div>
+				
+				<!-- /.info-box-content -->
+				</div>
+				</a>
+				<!-- /.info-box -->
+				</div>
+				{{/each}}
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+		
+		<div class="box-body">
+          <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Tablets</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="">
+				{{#each products3}}
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				<a href=/products/{{this.product_id}}>
+				<div class="info-box">
+				
+				<span class="info-box-icon bg-aqua"><img class="img-responsive" src={{this.picture}} alt="Product 1"></span>
+
+				<div class="info-box-content">
+				<span class="info-box-text">{{this.product_name}}</span>
+				<span class="info-box-number">P{{this.price}}</span>
+				</div>
+				
+				<!-- /.info-box-content -->
+				</div>
+				</a>
+				<!-- /.info-box -->
+				</div>
+        <!-- /.col -->
+				{{/each}}
+       
+        
+       
+       
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+		
+		<div class="box-body">
+          <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Laptop</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="">
+				{{#each products4}}
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				<a href=/products/{{this.product_id}}>
+				<div class="info-box">
+				
+				<span class="info-box-icon bg-aqua"><img class="img-responsive" src={{this.picture}} alt="Product 1"></span>
+
+				<div class="info-box-content">
+				<span class="info-box-text">{{this.product_name}}</span>
+				<span class="info-box-number">P{{this.price}}</span>
+				</div>
+				
+				<!-- /.info-box-content -->
+				</div>
+				</a>
+				<!-- /.info-box -->
+				</div>
+        <!-- /.col -->
+				{{/each}}
+        <!-- /.col -->
+       
+        
+       
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+		
+		
+        </div>
+        
+		<!-- /.box-body -->
+         </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>

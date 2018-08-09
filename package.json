@@ -1,0 +1,30 @@
+{
+  "name": "dbms1819-ecommerce-t18-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristolintan/dbms1819-ecommerce-t18.git"
+  },
+  "keywords": [
+    "git"
+  ],
+  "author": "tan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cristolintan/dbms1819-ecommerce-t18/issues"
+  },
+  "homepage": "https://github.com/cristolintan/dbms1819-ecommerce-t18#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "nodemailer": "^4.6.7",
+    "pg": "^7.4.3",
+    "replace-string": "^1.1.0",
+    "string": "^3.3.3"
+  }
+}
