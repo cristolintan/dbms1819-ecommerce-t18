@@ -1,97 +1,21 @@
-<div class="content-wrapper" background="./Profile Page of Benz_files/grid.gif">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        {{prod_name}}
-      </h1>
-	  <br>
-	  <span class="btn btn-sm btn-primary" id="addUserbtn" style="margin-right:5px" onclick="location.href='/product/update/{{prod_id}}';" ">Update Product</span>
-    </section>
+<section class="page-section cta">
+  <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="cta-inner text-center rounded">
+              <h2 class="section-heading mb-4">
+                
 
-    <!-- Main content -->
-    <section class="content">
+                  //code for printing brands
 
-      <!-- Default box -->
-      <div class="box">
 
-        <div class="box-body" >
-		
-			<div class="box-body box-profile">
-			  <!-- <span class="info-box-icon bg-aqua"><i class="fa fa-file-picture-o"></i></span> -->
-              <img class="img-responsive" src={{prod_picture}} alt="User profile picture" style="margin:auto">
-              <h3 class="profile-username text-center"><i class="fa fa-tags"></i>{{prod_name}}</h3>
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <i class="fa fa-money"></i> <b>Price: </b> <a class="pull-right">P{{prod_price}}</a>
-                </li>
-                <li class="list-group-item">
-                  <i class="fa fa-trademark"></i> <b>Brand: </b> <a class="pull-right">{{brandname}}</a>
-                </li>
-				<li class="list-group-item">
-                  <i class="glyphicon glyphicon-list-alt"></i> <b>Category/Type: </b> <a class="pull-right">{{categoryname}}</a>
-                </li>
-				<li class="list-group-item">
-                  <i class="glyphicon glyphicon-comment"></i> <b>Description </b>
-				  {{#each prod_desc}}
-				  <a class="pull-right">{{this}}</a>
-				  <br>
-				  {{/each}}
-				  
-                </li>
-				<li class="list-group-item">
-                  <i class="fa fa-trademark"></i> <b>Tagline: </b> <a class="pull-right">{{prod_tagline}}</a>
-                </li>
-				<li class="list-group-item">
-                  <i class="fa fa-trademark"></i> <b>Warranty: </b> <a class="pull-right">{{prod_warranty}} days</a>
-                </li>
-				</ul>
 
-              
+                   </div>
+                  </div>
+                  </div>
+                </section>
             </div>
-        </div>
-		
-		<div class="box box-success">
-            <div class="box-header with-border">
-              <h3 class="box-title">Contact Us</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <form role="form" method="post" action="/send-email/{{prod_id}}">
-                <!-- text input -->
-				<div class="form-group">
-                  <label>Product Id</label>
-                  <input name="id" type="text" class="form-control" disabled value="{{prod_id}}">
-                </div>
-                <div class="form-group">
-                  <label>Customer Name</label>
-                  <input name="cust_name" type="text" class="form-control" placeholder="Enter ..." required="required">
-                </div>
-				<div class="form-group">
-                  <label>Phone</label>
-                  <input name="phone" type="number" class="form-control" placeholder="Enter ..." required="required">
-                </div>
-				<div class="form-group">
-                  <label>Email</label>
-                  <input name="email" type="email" class="form-control" placeholder="Enter ..." required="required">
-                </div>
-				<div class="form-group">
-                  <label>Quantity</label>
-                  <input name="quantity" type="number" class="form-control" placeholder="Enter ..." required="required">
-                </div>
-				<div class="form-group">
-				   <button type="submit" class="btn bg-purple margin">Send</button>
-                </div>
-				
-
-              </form>
-            </div>
-            <!-- /.box-body -->
           </div>
-        
-		<!-- /.box-body -->
-         </div>
-      <!-- /.box -->
-
-    </section>
-    <!-- /.content -->
+        </div>
   </div>
+</section>

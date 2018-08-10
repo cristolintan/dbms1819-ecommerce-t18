@@ -1,22 +1,9 @@
-// Global styling for this template
 body {
-  overflow-x: hidden;
   @include body-font;
-}
-
-p {
-  line-height: 1.75;
-}
-
-a {
-  color: $primary;
-  &:hover {
-    color: darken($primary, 10%);
-  }
-}
-
-.text-primary {
-  color: $primary !important;
+  background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url('../img/bg.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 
 h1,
@@ -25,74 +12,55 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
   @include heading-font;
 }
 
-section {
-  padding: 100px 0;
-  h2.section-heading {
-    font-size: 40px;
-    margin-top: 0;
-    margin-bottom: 15px;
-  }
-  h3.section-subheading {
-    font-size: 16px;
-    font-weight: 400;
-    font-style: italic;
-    margin-bottom: 75px;
-    text-transform: none;
-    @include serif-font;
-  }
-}
-@media(min-width:768px) {
-  section {
-    padding: 150px 0;
-  }
+p {
+  line-height: 1.75;
 }
 
-// Button Styles
-.btn {
+.text-faded {
+  color: fade-out($white, 0.7);
+}
+
+.site-heading {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  text-transform: uppercase;
+  line-height: 1;
+
   @include heading-font;
-  font-weight: 700;
-}
-
-.btn-xl {
-  font-size: 18px;
-  padding: 20px 40px;
-}
-
-.btn-primary {
-  background-color: $primary;
-  border-color: $primary;
-  &:active,
-  &:focus,
-  &:hover {
-    background-color: darken($primary, 7.5%) !important;
-    border-color: darken($primary, 7.5%) !important;
-    color: white;
+  .site-heading-upper {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
   }
-  &:active,
-  &:focus {
-    box-shadow: 0 0 0 0.2rem rgba(254, 209, 55,.5) !important;
+  .site-heading-lower {
+    font-size: 5rem;
+    font-weight: 100;
+    line-height: 4rem;
   }
 }
 
-// Highlight color customization
-::-moz-selection {
-  background: $primary;
-  text-shadow: none;
+.page-section {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
-::selection {
-  background: $primary;
-  text-shadow: none;
+.section-heading {
+  text-transform: uppercase;
+  .section-heading-upper {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .section-heading-lower {
+    display: block;
+    font-size: 3rem;
+    font-weight: 100;
+  }
 }
 
-img::selection {
-  background: transparent;
-}
-
-img::-moz-selection {
-  background: transparent;
+.bg-faded {
+  background-color: fade-out($white, 0.15);
 }

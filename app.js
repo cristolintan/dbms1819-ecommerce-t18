@@ -28,6 +28,9 @@ client.connect()
 
 
 
+
+
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'})); app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -38,6 +41,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
 res.render('home');
 });
+
+app.get('/bod', function (req, res) {
+res.render('brands',{
+	name: 'jon',
+	address: 'dsdad'
+});
+});
+
+
 
 
 app.get('/productslist', function (req, res) {
@@ -52,6 +64,8 @@ client.query("SELECT * FROM products", (req, data1)=>{
 	
 	
 	});
+
+
 
 
 app.get('/products/:userId', function (req, res) {
@@ -93,7 +107,7 @@ client.query("SELECT * FROM products where product_id="+userId+" ", (req, data3)
 		var str = products[0].description;
 			var desc = str.split(",");
 		
-		res.render('productview',{
+		res.render('productView',{
 			
 			prod_id: products[0].product_id,
 			prod_picture: products[0].picture,
@@ -119,13 +133,13 @@ client.query("SELECT * FROM products where product_id="+userId+" ", (req, data3)
 
 app.get('/brand/create', function (req, res) {
 
-			res.render('brandcreate');
+			res.render('createBrand');
 	});
 	
 app.post('/brand/submit', function (req, res) {
 	console.log(req.body.name);
 client.query("INSERT INTO brands (name,description) VALUES ('"+req.body.name+"','"+req.body.description+"') ");
-	// res.render('brandcreate');
+	// res.render('createBrand');
 			res.redirect('/brands');
 	});	
 	
@@ -144,13 +158,13 @@ client.query("SELECT * FROM brands ORDER BY brand_id ASC", (req, data1)=>{
 
 app.get('/category/create', function (req, res) {
 
-			res.render('categorycreate');
+			res.render('createCategory');
 	});
 	
 app.post('/category/submit', function (req, res) {
 	console.log(req.body.name);
 client.query("INSERT INTO products_category (name) VALUES ('"+req.body.name+"') ");
-	// res.render('brandcreate');
+	// res.render('createBrand');
 			res.redirect('/categories');
 	});	
 	
@@ -176,7 +190,7 @@ var brand = [];
 
 		}	brand = temp5;
 
-		res.render('productcreate',{
+		res.render('createProduct',{
 			categorydata : category,
 			branddata : brand
 			});
@@ -195,7 +209,7 @@ var brand = [];
 app.post('/product/submit', function (req, res) {
 	// console.log(req.body.category);
 client.query("INSERT INTO products (name,description,tagline,price,warranty,category_id,brand_id,picture) VALUES ('"+req.body.name+"','"+req.body.description+"','"+req.body.tagline+"','"+req.body.price+"','"+req.body.warranty+"','"+req.body.category+"','"+req.body.brand+"','"+req.body.picture+"') ");
-	// res.render('brandcreate');
+	// res.render('createBrand');
 			res.redirect('/productslist');
 	});
 
@@ -267,7 +281,7 @@ app.post('/product/updatesubmit/:userId', function (req, res) {
 	const userId = req.params.userId;
 	// console.log(req.body.category);
 client.query("UPDATE products SET name = '"+req.body.name+"',description = '"+req.body.description+"',tagline='"+req.body.tagline+"',price='"+req.body.price+"',warranty='"+req.body.warranty+"',category_id= '"+req.body.category+"',brand_id= '"+req.body.brand+"',picture= '"+req.body.picture+"' WHERE product_id='"+userId+"' ");
-	// res.render('brandcreate');
+	// res.render('createBrand');
 			res.redirect('/productslist');
 	});		
 	
@@ -293,7 +307,7 @@ app.post('/send-email/:userId', function (req, res) {
       	  service: "gmail",
           host: "smtp.gmail.com",
           secure: true,
-          auth: {
+           auth: {
               user: 'team18tanvillabrosa@gmail.com',
               pass: 'team18tan'
           }
@@ -310,7 +324,7 @@ app.post('/send-email/:userId', function (req, res) {
     console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response){
 		if(error){
-			// console.log(error);
+			 console.log(error);
 			// res.end("error");
 		}else{
 			// console.log("Message sent: " + response.message);
@@ -335,7 +349,7 @@ app.post('/send-email/:userId', function (req, res) {
 		  }
           
           console.log('Message %s sent: %s', info.messageId, info.response);
-		  res.render('success');
+		  res.render('orderSuccess');
 
 		  });
       });
