@@ -11,7 +11,7 @@ var client = new Client({
 	
 	database: 'storedb',
 	user: 'postgres',
-	password: '12345',
+	password: 'villabrosaako',
 	host: 'localhost',
 	port: 5432,
 	

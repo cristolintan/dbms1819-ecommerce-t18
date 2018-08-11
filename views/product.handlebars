@@ -3,14 +3,22 @@
         <div class="row">
           <div class="col-xl-9 mx-auto">
             <div class="cta-inner text-center rounded">
-              <h2 class="section-heading mb-4">
+              
                 
 
-                  //code for printing brands
-
-
-
+                  {{#each data}}
+                  <div class=container>  
+                  <ul type='none'>
+                  
+                  <li><a href=/products/{{this.product_id}}><span font-size:4vw;>{{this.name}}</span></a></li>
+                  <li><p font-size:3vw;>P {{this.price}}</p></li>
+                  <li><p font-size:2vw;>{{this.description}}</p></li>
+                  <li><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
+                  </div>
+                  {{/each}}
+                  
                    </div>
+
                   </div>
                   </div>
                 </section>
