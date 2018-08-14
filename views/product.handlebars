@@ -2,26 +2,27 @@
   <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <div class="cta-inner text-center rounded">
+            <div class="text-center rounded">
               
-                
+                <div class="box">
+        <div class="box-header with-border">
+          <h2 class="box-title">Products for Sale</h2>
+      <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='/createproduct';" ">Create Product</span>
+        </div>
+        <div class="box-body">
 
                   {{#each data}}
                   <div class=container>  
                   <ul type='none'>
                   
-                  <li><a href=/products/{{this.product_id}}><span font-size:4vw;>{{this.name}}</span></a></li>
-                  <li><p font-size:3vw;>P {{this.price}}</p></li>
-                  <li><p font-size:2vw;>{{this.description}}</p></li>
-                  <li><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
+                  <li type="none"><a href=/products/{{this.product_id}}><span font-size:4vw;>{{this.name}}</span></a></li>
+                  <li type="none"><p font-size:3vw;>P {{this.price}}</p></li>
+                  <li type="none"><p font-size:2vw;>{{this.description}}</p></li>
+                  <li type="none"><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
                   </div>
                   {{/each}}
                   
-                   </div>
-
-                  </div>
-                  </div>
-                </section>
+                 
             </div>
           </div>
         </div>

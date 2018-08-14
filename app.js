@@ -42,12 +42,7 @@ app.get('/', function (req, res) {
 res.render('home');
 });
 
-app.get('/bod', function (req, res) {
-res.render('brands',{
-	name: 'jon',
-	address: 'dsdad'
-});
-});
+
 
 
 
@@ -84,15 +79,18 @@ client.query("SELECT * FROM products where product_id="+userId+" ", (req, data3)
 	for(x = 0; x < data3.rowCount; x++){
 
 	temp3[x] = data3.rows[x];
+	
+	}	
 
-	}	products = temp3;
+	   products = temp3;
 	
 	
 		client.query("SELECT * FROM products_category where category_id="+products[0].category_id+" ", (req, data4)=>{
-		
+					
 		for(x = 0; x < data4.rowCount; x++){
 
 		temp4[x] = data4.rows[x];
+		
 
 		}	category = temp4;
 		
@@ -126,12 +124,20 @@ client.query("SELECT * FROM products where product_id="+userId+" ", (req, data3)
 
 	});
 	
-	
-
 
 });
 
-app.get('/brand/create', function (req, res) {
+
+//app.post('/send-email/:userId', function (req, res) {
+//	const userId = req.params.userId;
+ //   client.query("INSERT INTO customer (name,email,first_name,last_name,street,municipality,province,zipcode) VALUES ('"+req.body.name+"') ");
+	// res.render('createBrand');
+	//		res.redirect('/categories');
+//	});	
+
+
+
+app.get('/createbrand', function (req, res) {
 
 			res.render('createBrand');
 	});
@@ -156,7 +162,7 @@ client.query("SELECT * FROM brands ORDER BY brand_id ASC", (req, data1)=>{
     
 });	
 
-app.get('/category/create', function (req, res) {
+app.get('/createcategory', function (req, res) {
 
 			res.render('createCategory');
 	});
@@ -168,7 +174,7 @@ client.query("INSERT INTO products_category (name) VALUES ('"+req.body.name+"') 
 			res.redirect('/categories');
 	});	
 	
-app.get('/product/create', function (req, res) {
+app.get('/createproduct', function (req, res) {
 var temp4 = [];
 var temp5 = [];
 var category = [];

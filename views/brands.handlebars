@@ -2,18 +2,21 @@
   <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <div class="cta-inner text-center rounded">
-              <h2 class="section-heading mb-4">
-                
+            <div class="text-center rounded">
+              <div class="box-header with-border">
+              <h3 class="box-title">Brand List</h3>
+        <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='/createbrand';" ">Create Brand</span>
+            </div>
 
-                  //code for printing brands
+             <div class="box-body">
+                   {{#each data}}
+              <li type="none">{{this.name}}</li>
+              <ul>
+                  <li type="none">{{this.description}}</li>
+              </ul>
+        {{/each}}
 
-
-
-                   </div>
-                  </div>
-                  </div>
-                </section>
+        </div>            
             </div>
           </div>
         </div>
