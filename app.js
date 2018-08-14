@@ -14,6 +14,7 @@ var client = new Client({
 	password: '9b41bb0445e45dad5fcb60d214f0cb17931ec9cb24ce8096a414d67a37e94ee3',
 	host: 'ec2-54-225-76-201.compute-1.amazonaws.com',
 	port: 5432,
+	ssl: true
 	
 });
 
