@@ -344,7 +344,7 @@ var brand = [];
 		}	orders = temp5;
 		console.log(orders);
 
-		res.render('customerview',{
+		res.render('customerView',{
 			first_name : customer[0].first_name,
 			last_name: customer[0].last_name,
 			email: customer[0].email,
