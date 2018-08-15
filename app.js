@@ -430,7 +430,7 @@ app.post('/send-email/:userId', function (req, res) {
 				return console.log(error2);
 				}
 				console.log('Message %s sent: %s', info2.messageId, info2.response);
-				res.render('success');
+				res.render('orderSuccess');
 				}); 
 				}); 
 				
@@ -484,7 +484,7 @@ app.post('/send-email/:userId', function (req, res) {
 				return console.log(error2);
 				}
 				console.log('Message %s sent: %s', info2.messageId, info2.response);
-				res.render('success');
+				res.render('OrderSuccess');
 				}); 
 				}); 
 			
