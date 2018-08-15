@@ -50,43 +50,52 @@
          </div>
         </div>
     
-    <div class="box box-success">
-            <div class="box-header with-border">
-              <h3 class="box-title">Contact Us</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
+   <div class="box-body">
               <form role="form" method="post" action="/send-email/{{prod_id}}">
                 <!-- text input -->
         <div class="form-group">
                   <label>Product Id</label>
                   <input name="id" type="text" class="form-control" disabled value="{{prod_id}}">
                 </div>
+        <div class="form-group">
+                  <label>Product Quantity</label>
+                  <input name="quantity" type="text" class="form-control" placeholder="Enter ..." required="required">
+                </div>
                 <div class="form-group">
-                  <label>Customer Name</label>
-                  <input name="cust_name" type="text" class="form-control" placeholder="Enter ..." required="required">
+                  <label>First Name</label>
+                  <input name="fname" type="text" class="form-control" placeholder="Enter ..." required="required">
                 </div>
         <div class="form-group">
-                  <label>Phone</label>
-                  <input name="phone" type="number" class="form-control" placeholder="Enter ..." required="required">
+                  <label>Last Name</label>
+                  <input name="lname" type="text" class="form-control" placeholder="Enter ..." required="required">
                 </div>
+        
         <div class="form-group">
                   <label>Email</label>
                   <input name="email" type="email" class="form-control" placeholder="Enter ..." required="required">
                 </div>
         <div class="form-group">
-                  <label>Quantity</label>
-                  <input name="quantity" type="number" class="form-control" placeholder="Enter ..." required="required">
+                  <label>Street</label>
+                  <input name="street" type="text" class="form-control" placeholder="Enter ..." required="required">
+                </div>
+        <div class="form-group">
+                  <label>Municipality/City</label>
+                  <input name="municipality" type="text" class="form-control" placeholder="Enter ..." required="required">
+                </div>
+        <div class="form-group">
+                  <label>Province</label>
+                  <input name="province" type="text" class="form-control" placeholder="Enter ..." required="required">
+                </div>
+        <div class="form-group">
+                  <label>Zip Code</label>
+                  <input name="zipcode" type="number" class="form-control" placeholder="Enter ..." required="required">
                 </div>
         <div class="form-group">
            <button type="submit" class="btn bg-purple margin">Send</button>
                 </div>
         
-
               </form>
             </div>
-            <!-- /.box-body -->
-          </div>  
 
 
 
@@ -96,3 +105,39 @@
         </div>
   </div>
 </section>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    
+   
+  });
+  
+  function showModal(var4,var5){
+    if(var4=='delete'){
+    $('#myModal').modal("show");  
+    $('#mod-title').html("Delete Product");
+    $('#mod-content').html(
+          '<input type="text" id="updateIdx" hidden>'+
+          '<div class="form-group">'+
+          '<p>Would you like to delete this product?</p>'+
+          '</div>'              
+);
+          $('#notif-mess').html(' ');
+    $('#mod-footer').html('<button id="addUserSubmitform"  class="btn btn-primary" onclick=showModal("delete2") >Submit</button>'+
+    '<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>');
+     $('#updateIdx').val(var5);
+    }
+    else if(var4=='delete2'){
+        
+        var updateIdx = $('#updateIdx').val();
+        
+          $('#myModal').modal("hide");  
+          location.href='/product/delete/{{prod_id}}';  
+        
+        
+        
+    }
+    
+    }
+</script> 

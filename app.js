@@ -305,61 +305,203 @@ client.query("SELECT * FROM products_category ORDER BY category_id ASC", (req, d
     
 });	
 	
+
+
+
+app.get('/customers', function (req, res) {
+	
+     client.query("SELECT * FROM customer", (req, data1)=>{
+	console.log(data1);
+	res.render('customers',{
+		data: data1.rows
+	});
+	
+});
+    
+});	
+
+app.get('/customer/:custId', function (req, res) {
+const custId = req.params.custId;
+var temp4 = [];
+var temp5 = [];
+var category = [];
+var brand = [];
+	client.query("SELECT * FROM customer WHERE customer_id="+custId+" ", (req, data4)=>{
+		
+		for(x = 0; x < data4.rowCount; x++){
+
+		temp4[x] = data4.rows[x];
+
+		}	customer = temp4;
+		console.log(customer);
+		
+		client.query("SELECT * FROM orders INNER JOIN products on orders.product_id=products.product_id where customer_id="+custId+" ", (req, data5)=>{
+	
+		for(x = 0; x < data5.rowCount; x++){
+
+		temp5[x] = data5.rows[x];
+
+		}	orders = temp5;
+		console.log(orders);
+
+		res.render('customerview',{
+			first_name : customer[0].first_name,
+			last_name: customer[0].last_name,
+			email: customer[0].email,
+			street: customer[0].street,
+			municipality: customer[0].municipality,
+			province:customer[0].province,
+			zipcode:customer[0].zipcode,
+			data2 : orders
+			});
+	
+		});
+	
+	});
+	
+		
+	
+	
+	
+   
+	 
+	 
+});	
+
+app.get('/orders', function (req, res) {
+     client.query("SELECT * FROM orders INNER JOIN customer ON orders.customer_id=customer.customer_id INNER JOIN products ON orders.product_id=products.product_id ORDER BY orders_id ASC", (req, data1)=>{
+	console.log(data1.rows);
+	res.render('orders',{
+		data: data1.rows
+	});
+   });
+});	
+	
 	
 
 
 app.post('/send-email/:userId', function (req, res) {
 	 const userId = req.params.userId;
-      let smtpTransport = nodeMailer.createTransport({
-      	  service: "gmail",
-          host: "smtp.gmail.com",
-          secure: true,
-           auth: {
-              user: 'team18tanvillabrosa@gmail.com',
-              pass: 'team18tan'
-          }
+	 
+	 client.query("SELECT * FROM customer where email='"+req.body.email+"' ", (req2, data4)=>{
+		// console.log(data4);	
+		console.log(data4.rowCount);
+		if(data4.rowCount >= 1){
+			
+			client.query("SELECT * FROM customer where email='"+req.body.email+"' ",(req3, data11)=>{
+				client.query("INSERT INTO orders (customer_id,product_id,quantity,order_date) VALUES ('"+data11.rows[0].customer_id+"','"+userId+"','"+req.body.quantity+"',CURRENT_TIMESTAMP)"); 
+				let transporter = nodeMailer.createTransport({
+				host: 'smtp.gmail.com',
+				port: 465,
+				secure: true,
+				auth: {
+            	  user: 'team18tanvillabrosa@gmail.com',
+            	  pass: 'team18tan'
+          			}
+				});
+
+				let mailOptions = {
+				from: req.body.email, // sender address
+				to: 'team18tanvillabrosa@gmail.com', // list of receivers
+				subject: 'Team 18 Order Form', // Subject line
+				text: '<p>Here is the new customer order request! <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>', // plain text body
+				html: '<p>Here is the new customer order request! <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>'// html body
+				};
+
+				transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+				  res.render('error');
+
+				return console.log(error);
+				}
+				
+				let mailOptions2 = {
+				from: 'team18tanvillabrosa@gmail.com', // sender address
+				to: req.body.email, // list of receivers
+				subject: 'Team 18 Product Order Form', // Subject line
+				text: '<p>Here are your order request details!! <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>', // plain text body
+				html: '<p>Here are your order request details!! <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>'// html body
+				};
+
+				transporter.sendMail(mailOptions2, (error2, info2) => {
+				if (error2) {
+				  res.render('error');
+
+				return console.log(error2);
+				}
+				console.log('Message %s sent: %s', info2.messageId, info2.response);
+				res.render('success');
+				}); 
+				}); 
+				
+			 });
+			
+		 }
+		 else if(data4.rowCount == 0){
+			 console.log('no data exist!');
+			 client.query("INSERT INTO customer (email,first_name,last_name,street,municipality,province,zipcode) VALUES ('"+req.body.email+"','"+req.body.fname+"','"+req.body.lname+"','"+req.body.street+"','"+req.body.municipality+"','"+req.body.province+"','"+req.body.zipcode+"')");
+			 client.query("SELECT * FROM customer where email='"+req.body.email+"' ",(req4, data11)=>{
+				 console.log(data11.rows[0].customer_id + " " +userId+ " "+req.body.quantity);
+				client.query("INSERT INTO orders (customer_id,product_id,quantity,order_date) VALUES ('"+data11.rows[0].customer_id+"','"+userId+"','"+req.body.quantity+"',CURRENT_TIMESTAMP)"); 
+				 
+			
+				let transporter = nodeMailer.createTransport({
+				host: 'smtp.gmail.com',
+				port: 465,
+				secure: true,
+				auth: {
+				user: 'team18tanvillabrosa@gmail.com',
+				pass: 'team18tan'
+				}
+				});
+				let mailOptions = {
+				from: req.body.email, // sender address
+				to: 'team18tanvillabrosa@gmail.com', // list of receivers
+				subject: 'Team 18 Product Order Form', // Subject line
+				text: '<p>Please check your order details <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>', // plain text body
+				html: '<p>Please check your order details <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>'// html body
+				};
+
+				transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+				  res.render('error');
+
+				return console.log(error);
+				}
+				
+				let mailOptions2 = {
+				from: 'team18tanvillabrosa@gmail.com', // sender address
+				to: req.body.email, // list of receivers
+				subject: 'Team 18 Product Order Form', // Subject line
+				text: '<p>Please check your order details!! <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>', // plain text body
+				html: '<p>Please check your order details!! <br> <b>Product Id</b>: '+ userId+'<br> <b>Product Quantity:</b> '+ req.body.quantity+'<br> <b>Customer Name</b>: '+ req.body.fname+' ' +req.body.lname+' <br> <b>Email</b>: '+ req.body.email +'<br> <b>Street</b>: '+ req.body.street+' <br> <b>Municipality</b>: '+ req.body.municipality +' <br> <b>Province</b>: '+ req.body.province +' <br> <b>Zipcode</b>: '+ req.body.zipcode+ '</p>'// html body
+				};
+
+				transporter.sendMail(mailOptions2, (error2, info2) => {
+				if (error2) {
+				  res.render('error');
+
+				return console.log(error2);
+				}
+				console.log('Message %s sent: %s', info2.messageId, info2.response);
+				res.render('success');
+				}); 
+				}); 
+			
+				 
+				 
+				 
+			 });
+		 }
+		 
+	 });
+	 
+	 	 
+     
       });
-
-
-    var mailOptions={
-        to : req.body.email,
-        subject : "Order confirmation",
-        text : 'Your order has been successfuly received.<br>  Product Id: '+ req.body.id+'<br> Customer Name: '+ req.body.cust_name+'/n Phone: '+ req.body.phone +'/n Email: '+ req.body.email +'/n Customer Quantity: '+ req.body.quantity
-    }
-
-
-    console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function(error, response){
-		if(error){
-			 console.log(error);
-			// res.end("error");
-		}else{
-			// console.log("Message sent: " + response.message);
-			// res.end("sent");
-			res.render('emailsent');
-		}
-	});
-      
-      var mailOptions = {
-          from: req.body.email, // sender address
-          to: 'team18tanvillabrosa@gmail.com', // list of receivers
-          subject: 'E-Commerce New Order!!!', // Subject line
-          text: 'Product Id: '+ req.body.id+'<br> Customer Name: '+ req.body.cust_name+'/n Phone: '+ req.body.phone +'/n Email: '+ req.body.email +'/n Customer Quantity: '+ req.body.quantity // plain text body
-         // html body
-      };
-
-      smtpTransport.sendMail(mailOptions, (error, info) => {
-          if (error) {
-			  		  res.render('error');
 	
-              return console.log(error);
-		  }
-          
-          console.log('Message %s sent: %s', info.messageId, info.response);
-		  res.render('orderSuccess');
 
-		  });
-      });
+
 
 
 app.listen(port, function() {
