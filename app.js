@@ -344,7 +344,7 @@ var brand = [];
 		}	orders = temp5;
 		console.log(orders);
 
-		res.render('customerview',{
+		res.render('customerView',{
 			first_name : customer[0].first_name,
 			last_name: customer[0].last_name,
 			email: customer[0].email,
@@ -430,7 +430,7 @@ app.post('/send-email/:userId', function (req, res) {
 				return console.log(error2);
 				}
 				console.log('Message %s sent: %s', info2.messageId, info2.response);
-				res.render('success');
+				res.render('orderSuccess');
 				}); 
 				}); 
 				
@@ -484,7 +484,7 @@ app.post('/send-email/:userId', function (req, res) {
 				return console.log(error2);
 				}
 				console.log('Message %s sent: %s', info2.messageId, info2.response);
-				res.render('success');
+				res.render('OrderSuccess');
 				}); 
 				}); 
 			
