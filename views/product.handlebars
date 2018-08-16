@@ -1,3 +1,9 @@
+<style>
+  .grid{
+  height: auto;
+    width: 80%;
+  }
+</style>
 <section class="page-section cta">
   <div class="container">
         <div class="row">
@@ -7,12 +13,17 @@
                 <div class="box">
         <div class="box-header with-border">
           <h2 class="box-title">Products for Sale</h2>
-      <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='/createproduct';" ">Create Product</span>
+      
         </div>
-        <div class="box-body">
+        <div class="box-body" align="center">
 
-                  {{#each data}}
-                  <div class=container>  
+             
+    <div class="row">
+     {{#each data}}
+                 
+                  
+      <div class="col-sm-6 background="color:red">
+         <div class=grid>  
                   <ul type='none'>
                   
                   <li type="none"><a href=/products/{{this.product_id}}><span font-size:4vw;>{{this.name}}</span></a></li>
@@ -20,11 +31,17 @@
                   <li type="none"><p font-size:2vw;>{{this.description}}</p></li>
                   <li type="none"><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
                   </div>
-                  {{/each}}
+      </div>
+      {{/each}}
+                  
                   
                  
             </div>
           </div>
         </div>
+        <div class="box-header with-border" align="center">
+        <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='/createproduct';" ">Create Product</span>
+  </div>
   </div>
 </section>
+
