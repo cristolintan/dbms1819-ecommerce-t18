@@ -2,10 +2,21 @@
   .grid{
   height: auto;
     width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+   
+    
   }
+  .grid:hover{
+  height: auto;
+    width: 100%;
+    background: linear-gradient(to right,#c17e26 , #fca22d);
+    border-radius: 25px;
+  }
+  
 </style>
 <section class="page-section cta">
-  <div class="container">
+  <div class="container center">
         <div class="row">
           <div class="col-xl-9 mx-auto">
             <div class="text-center rounded">
@@ -18,20 +29,22 @@
         <div class="box-body" align="center">
 
              
-    <div class="row">
+    <div class="row ">
      {{#each data}}
                  
-                  
-      <div class="col-sm-6 background="color:red">
-         <div class=grid>  
+                 
+      <div class="col-sm-6" background="color:red">
+       <a href=/products/{{this.product_id}}><span font-size:4vw;> 
+         <div class="grid">  
                   <ul type='none'>
-                  
-                  <li type="none"><a href=/products/{{this.product_id}}><span font-size:4vw;>{{this.name}}</span></a></li>
-                  <li type="none"><p font-size:3vw;>P {{this.price}}</p></li>
-                  <li type="none"><p font-size:2vw;>{{this.description}}</p></li>
-                  <li type="none"><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
+                  <li type="none" align="center"><p font-size:3vw;>{{this.name}}</p></li>
+                  <li type="none" align="center"><p font-size:3vw;>P {{this.price}}</p></li>
+                  <li type="none" align="center"><p font-size:2vw;>{{this.description}}</p></li>
+                  <li type="none" align="center"><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
                   </div>
+                  </span></a>
       </div>
+      
       {{/each}}
                   
                   
