@@ -1,0 +1,57 @@
+<style>
+  .grid{
+  height: auto;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+   
+    
+  }
+  .grid:hover{
+  height: auto;
+    width: 100%;
+    background: linear-gradient(to right,#c17e26 , #fca22d);
+    border-radius: 25px;
+  }
+  
+</style>
+<section class="page-section cta">
+  <div class="container center">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="text-center rounded">
+              
+                <div class="box">
+        <div class="box-header with-border">
+          <h2 class="box-title">Products for Sale</h2>
+      
+        </div>
+        <div class="box-body" align="center">
+
+             
+    <div class="row ">
+     {{#each data}}
+                 
+                 
+      <div class="col-sm-6" background="color:red">
+       <a href=/client/products/{{this.product_id}}><span font-size:4vw;> 
+         <div class="grid">  
+                  <ul type='none'>
+                  <li type="none" align="center"><p font-size:3vw; font-style:"none">{{this.name}}</p></li>
+                  <li type="none" align="center"><p font-size:3vw;>P {{this.price}}</p></li>
+                  <li type="none" align="center"><p font-size:2vw;>{{this.description}}</p></li>
+                  <li type="none" align="center"><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
+                  </div>
+                  </span></a>
+      </div>
+      
+      {{/each}}
+                  
+                  
+                 
+            </div>
+          </div>
+        </div>
+  </div>
+</section>
+

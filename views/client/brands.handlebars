@@ -1,0 +1,24 @@
+<section class="page-section cta">
+  <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="text-center rounded">
+              <div class="box-header with-border">
+              <h3 class="box-title">Brand List</h3>
+       
+            </div>
+
+             <div class="box-body">
+                   {{#each data}}
+              <li type="none">{{this.name}}</li>
+              <ul>
+                  <li type="none">{{this.description}}</li>
+              </ul>
+        {{/each}}
+
+        </div>            
+            </div>
+          </div>
+        </div>
+  </div>
+</section>
