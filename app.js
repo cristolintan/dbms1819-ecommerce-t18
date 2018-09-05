@@ -9,11 +9,12 @@ var { Client } = require('pg');
 var port = process.env.PORT || 3000;
 var client = new Client({
 
-  database: 'storedb',
-  user: 'postgres',
-  password: '12345',
-  host: 'localhost',
-  port: 5432
+  database: 'df3gq2mc17vt1f',
+  user: 'ehmwtqxcvqrmdd',
+  password: '9b41bb0445e45dad5fcb60d214f0cb17931ec9cb24ce8096a414d67a37e94ee3',
+  host: 'ec2-54-225-76-201.compute-1.amazonaws.com',
+  port: 5432,
+  ssl: true
 });
 
 // connect to database
