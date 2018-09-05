@@ -9,12 +9,11 @@ var { Client } = require('pg');
 var port = process.env.PORT || 3000;
 var client = new Client({
 
-  database: 'df3gq2mc17vt1f',
-  user: 'ehmwtqxcvqrmdd',
-  password: '9b41bb0445e45dad5fcb60d214f0cb17931ec9cb24ce8096a414d67a37e94ee3',
-  host: 'ec2-54-225-76-201.compute-1.amazonaws.com',
-  port: 5432,
-  ssl: true
+  database: 'storedb',
+  user: 'postgres',
+  password: '12345',
+  host: 'localhost',
+  port: 5432
 });
 
 // connect to database
@@ -37,9 +36,46 @@ app.get('/', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-  res.render('admin/home',{layout:'admin'});
-  
+  var topcustomer = [];
+  var top = [];
+  var top = [];
+  var top = [];
+  var top = [];
+  var top = [];
+  var top = [];
+  var top = [];
+
+
+client.query('SELECT first_name,last_name,COUNT(orders.orders_id) AS num_orders FROM customer INNER JOIN orders ON customer.customer_id = orders.customer_id GROUP BY orders.customer_id,customer.customer_id ORDER BY num_orders DESC LIMIT 10', (req, top1) => {
+client.query('SELECT first_name,last_name,SUM(products.price) AS totalprice FROM ((customer INNER JOIN orders ON customer.customer_id = orders.customer_id) INNER JOIN products ON products.product_id = orders.product_id) GROUP BY customer.customer_id ORDER BY totalprice DESC LIMIT 10;', (req, top2) => {
+client.query('SELECT name,SUM(orders.quantity) AS num_orders FROM products INNER JOIN orders ON products.product_id = orders.product_id GROUP BY orders.product_id,products.product_id ORDER BY num_orders DESC LIMIT 10', (req, top3) => {
+client.query('SELECT name,SUM(orders.quantity) AS num_orders FROM products INNER JOIN orders ON products.product_id = orders.product_id GROUP BY orders.product_id,products.product_id ORDER BY num_orders ASC LIMIT 10', (req, top4) => {    
+client.query('SELECT brands.name,SUM(orders.quantity) AS num_orders FROM ((brands INNER JOIN products ON brands.brand_id = products.brand_id) INNER JOIN orders ON orders.product_id = products.product_id) GROUP BY brands.brand_id ORDER BY num_orders DESC LIMIT 3', (req, top5) => {
+client.query('SELECT products_category.name,SUM(orders.quantity) AS num_orders FROM ((products_category INNER JOIN products ON products_category.category_id = products.category_id) INNER JOIN orders ON orders.product_id = products.product_id) GROUP BY products_category.category_id ORDER BY num_orders DESC LIMIT 3', (req, top6) => {
+    
+    console.log(top4.rows);
+    res.render('admin/home', {
+      layout:'admin',
+      data: top1.rows,
+      data2: top2.rows,
+      data3: top3.rows,
+      data4: top4.rows,
+      data5: top5.rows,
+      data6: top6.rows
+
+    });
+    
+    });
+    });
+    });
+   });
+  });
+ }); 
+
 });
+  
+
+
 
 app.get('/client/product', function (req, res) {
   client.query('SELECT * FROM products', (req, data1) => {
@@ -70,7 +106,7 @@ app.get('/client/products/:userId', function (req, res) {
   var brand = [];
   var x;
 
-  console.log(desktop);
+  
   client.query('SELECT * FROM products where product_id=' + userId + ' ', (req, data3) => {
     for (x = 0; x < data3.rowCount; x++) {
       temp3[x] = data3.rows[x];
@@ -167,38 +203,75 @@ app.get('/admin/products/:userId', function (req, res) {
 // res.redirect('/categories');
 // });
 
-
-
-
-app.get('/createbrand', function (req, res) {
-  res.render('createBrand');
+app.get('/client/brands', function (req, res) {
+  client.query('SELECT * FROM brands ORDER BY brand_id ASC', (req, data1) => {
+    console.log(data1.rows);
+    res.render('client/brands', {
+      layout:'main',
+      data: data1.rows
+    });
+  });
 });
 
-app.post('/brand/submit', function (req, res) {
+app.get('/admin/brands', function (req, res) {
+  client.query('SELECT * FROM brands ORDER BY brand_id ASC', (req, data1) => {
+    console.log(data1.rows);
+    res.render('admin/brands', {
+      layout:'admin',
+      data: data1.rows
+    });
+  });
+});
+
+
+app.get('/admin/createbrand', function (req, res) {
+  res.render('admin/createBrand',{
+    layout:'admin'
+  });
+});
+
+app.post('/admin/brand/submit', function (req, res) {
   console.log(req.body.name);
   client.query("INSERT INTO brands (name,description) VALUES ('" + req.body.name + "','" + req.body.description + "') ");
   // res.render('createBrand');
-  res.redirect('/brands');
+  res.redirect('/admin/brands',{
+    layout:'main'
+  });
 });
 
-app.get('/brands', function (req, res) {
-  client.query('SELECT * FROM brands ORDER BY brand_id ASC', (req, data1) => {
+
+app.get('/client/categories', function (req, res) {
+  client.query('SELECT * FROM products_category ORDER BY category_id ASC', (req, data1) => {
     console.log(data1.rows);
-    res.render('brands', {
+    res.render('client/categories', {
+      layout:'main',
+      data: data1.rows
+    });
+  });
+});
+
+app.get('/admin/categories', function (req, res) {
+  client.query('SELECT * FROM products_category ORDER BY category_id ASC', (req, data1) => {
+    console.log(data1.rows);
+    res.render('admin/categories', {
+      layout:'admin',
       data: data1.rows
     });
   });
 });
 
 app.get('/admin/createcategory', function (req, res) {
-  res.render('admin/createCategory');
+  res.render('admin/createCategory',{
+    layout:'admin'
+  });
 });
 
 app.post('/admin/category/submit', function (req, res) {
   console.log(req.body.name);
   client.query("INSERT INTO products_category (name) VALUES ('" + req.body.name + "') ");
-  // res.render('createBrand');
-  res.redirect('/admin/categories');
+  res.redirect('/admin/categories',{
+    layout:'main'
+  });
 });
 
 app.get('/admin/createproduct', function (req, res) {
@@ -218,6 +291,7 @@ app.get('/admin/createproduct', function (req, res) {
       } brand = temp5;
 
       res.render('admin/createProduct', {
+        layout:'admin',
         categorydata: category,
         branddata: brand
       });
@@ -225,14 +299,14 @@ app.get('/admin/createproduct', function (req, res) {
   });
 });
 
-app.post('/product/submit', function (req, res) {
-  // console.log(req.body.category);
+app.post('/admin/product/submit', function (req, res) {
   client.query("INSERT INTO products (name,description,tagline,price,warranty,category_id,brand_id,picture) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.tagline + "','" + req.body.price + "','" + req.body.warranty + "','" + req.body.category + "','" + req.body.brand + "','" + req.body.picture + "') ");
-  // res.render('createBrand');
-  res.redirect('/productView');
+  res.redirect('/admin/product',{
+    layout:'main'
+  });
 });
 
-app.get('/product/update/:userId', function (req, res) {
+app.get('/admin/product/update/:userId', function (req, res) {
   const userId = req.params.userId;
   var temp3 = [];
   var temp4 = [];
@@ -243,7 +317,6 @@ app.get('/product/update/:userId', function (req, res) {
   var brand = [];
   var x;
 
-  console.log(desktop);
   client.query('SELECT * FROM products where product_id=' + userId + ' ', (req, data3) => {
     for (x = 0; x < data3.rowCount; x++) {
       temp3[x] = data3.rows[x];
@@ -259,8 +332,8 @@ app.get('/product/update/:userId', function (req, res) {
           temp5[x] = data5.rows[x];
         } brand = temp5;
 
-        res.render('productupdate', {
-
+        res.render('admin/productupdate', {
+          layout:'admin',
           prod_id: products[0].product_id,
           prod_name: products[0].name,
           prod_desc: products[0].description,
@@ -278,33 +351,29 @@ app.get('/product/update/:userId', function (req, res) {
   });
 });
 
-app.post('/product/updatesubmit/:userId', function (req, res) {
+app.post('/admin/product/updatesubmit/:userId', function (req, res) {
   const userId = req.params.userId;
   // console.log(req.body.category);
   client.query("UPDATE products SET name = '" + req.body.name + "',description = '" + req.body.description + "',tagline='" + req.body.tagline + "',price='" + req.body.price + "',warranty='" + req.body.warranty + "',category_id= '" + req.body.category + "',brand_id= '" + req.body.brand + "',picture= '" + req.body.picture + "' WHERE product_id='" + userId + "' ");
   // res.render('createBrand');
-  res.redirect('/productslist');
-});
-
-app.get('/categories', function (req, res) {
-  client.query('SELECT * FROM products_category ORDER BY category_id ASC', (req, data1) => {
-    console.log(data1.rows);
-    res.render('categories', {
-      data: data1.rows
-    });
+  res.redirect('/admin/product',{
+    layout:'main'
   });
 });
 
-app.get('/customers', function (req, res) {
+
+
+app.get('/admin/customers', function (req, res) {
   client.query('SELECT * FROM customer', (req, data1) => {
     console.log(data1);
-    res.render('customers', {
+    res.render('admin/customers', {
+      layout:'admin',
       data: data1.rows
     });
   });
 });
 
-app.get('/customer/:custId', function (req, res) {
+app.get('/admin/customer/:custId', function (req, res) {
   const custId = req.params.custId;
   var temp4 = [];
   var temp5 = [];
@@ -328,7 +397,8 @@ app.get('/customer/:custId', function (req, res) {
       } orders = temp5;
       console.log(orders);
 
-      res.render('customerView', {
+      res.render('admin/customerView', {
+        layout:'admin',
         first_name: customer[0].first_name,
         last_name: customer[0].last_name,
         email: customer[0].email,
@@ -342,16 +412,17 @@ app.get('/customer/:custId', function (req, res) {
   });
 });
 
-app.get('/orders', function (req, res) {
+app.get('/admin/orders', function (req, res) {
   client.query('SELECT * FROM orders INNER JOIN customer ON orders.customer_id=customer.customer_id INNER JOIN products ON orders.product_id=products.product_id ORDER BY orders_id ASC', (req, data1) => {
     console.log(data1.rows);
-    res.render('orders', {
+    res.render('admin/orders', {
+      layout:'admin',
       data: data1.rows
     });
   });
 });
 
-app.post('/send-email/:userId', function (req, res) {
+app.post('/client/send-email/:userId', function (req, res) {
   const userId = req.params.userId;
 
   client.query("SELECT * FROM customer where email='" + req.body.email + "' ", (req2, data4) => {
@@ -380,7 +451,9 @@ app.post('/send-email/:userId', function (req, res) {
 
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
-            res.render('error');
+            res.render('client/error',{
+              layout:'main'
+            });
 
             return console.log(error);
           }
@@ -395,12 +468,16 @@ app.post('/send-email/:userId', function (req, res) {
 
           transporter.sendMail(mailOptions2, (error2, info2) => {
             if (error2) {
-              res.render('error');
+              res.render('client/error',{
+                layout:'main'
+              });
 
               return console.log(error2);
             }
             console.log('Message %s sent: %s', info2.messageId, info2.response);
-            res.render('orderSuccess');
+            res.render('client/orderSuccess',{
+              layout:'main'
+            });
           });
         });
       });
@@ -430,7 +507,9 @@ app.post('/send-email/:userId', function (req, res) {
 
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
-            res.render('error');
+            res.render('client/error',{
+              layout:'main'
+            });
 
             return console.log(error);
           }
@@ -445,12 +524,14 @@ app.post('/send-email/:userId', function (req, res) {
 
           transporter.sendMail(mailOptions2, (error2, info2) => {
             if (error2) {
-              res.render('error');
+              res.render('client/error',{
+                layout:'main'
+              });
 
               return console.log(error2);
             }
             console.log('Message %s sent: %s', info2.messageId, info2.response);
-            res.render('OrderSuccess');
+            res.render('client/OrderSuccess');
           });
         });
       });
