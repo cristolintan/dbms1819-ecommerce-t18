@@ -1,26 +1,45 @@
-    <section class="page-section cta">
-      <div class="container">
+  <section class="page-section cta">
+  <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
             <div class="text-center rounded">
-              <h2 class="section-heading mb-4">
-                <span class="section-heading-upper">Our Promise</span>
-                <span class="section-heading-lower">To You</span>
+                 <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">ADMINISTRATOR</span>
+                <span class="section-heading-lower">WELCOME TO DASHBOARD</span>
               </h2>
-                  <section class="page-section clearfix">
-                    <div class="container>
-                    <span class="section-heading-lower"><h4>Worth Driving</h4></span>                     
-                        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" align="center" src="assets/img/intro.jpg" alt="">
-                    
-                    <div class="intro-text left-0 text-center bg-faded p-5 rounded">
-                        <div class="intro-button mx-auto">
-                      <a class="btn btn-primary btn-xl" href="/productView">Visit Us Today!</a>
-                   </div>
-                  </div>
-                  </div>
-                </section>
+
+              <h3>Top 10 customers with most numbers of Orders</h3>
+
+
+                <div class="box box-success">
+            <div class="box-header with-border">
+            </div>
+            
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table table-striped">
+                <tr>   
+                  <th>Customer Name</th>
+                  <th>Number of Orders</th>
+                </tr>
+
+               {{#each data}}
+                   <tr>
+                  <td>{{this.first_name}} {{this.last_name}}</td>
+                  <td>{{this.num_orders}}</td>
+                  </tr>
+                {{/each}}
+                
+                
+              
+              </table>
+            </div>
+      
+            <!-- /.box-body -->
+          </div>
+                 
             </div>
           </div>
         </div>
-      </div>
-    </section>
+  </div>
+</section>
