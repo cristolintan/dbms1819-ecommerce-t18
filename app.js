@@ -250,9 +250,7 @@ app.post('/admin/brand/submit', function (req, res) {
   console.log(req.body.name);
   client.query("INSERT INTO brands (name,description) VALUES ('" + req.body.name + "','" + req.body.description + "') ");
   // res.render('createBrand');
-  res.redirect('/admin/brands',{
-    layout:'main'
-  });
+  res.redirect('/admin/brands');
 });
 
 
@@ -285,9 +283,7 @@ app.get('/admin/createcategory', function (req, res) {
 app.post('/admin/category/submit', function (req, res) {
   console.log(req.body.name);
   client.query("INSERT INTO products_category (name) VALUES ('" + req.body.name + "') ");
-  res.redirect('/admin/categories',{
-    layout:'main'
-  });
+  res.redirect('/admin/categories');
 });
 
 app.get('/admin/createproduct', function (req, res) {
@@ -317,9 +313,7 @@ app.get('/admin/createproduct', function (req, res) {
 
 app.post('/admin/product/submit', function (req, res) {
   client.query("INSERT INTO products (name,description,tagline,price,warranty,category_id,brand_id,picture) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.tagline + "','" + req.body.price + "','" + req.body.warranty + "','" + req.body.category + "','" + req.body.brand + "','" + req.body.picture + "') ");
-  res.redirect('/admin/product',{
-    layout:'main'
-  });
+  res.redirect('/admin/product');
 });
 
 app.get('/admin/product/update/:userId', function (req, res) {
@@ -372,9 +366,7 @@ app.post('/admin/product/updatesubmit/:userId', function (req, res) {
   // console.log(req.body.category);
   client.query("UPDATE products SET name = '" + req.body.name + "',description = '" + req.body.description + "',tagline='" + req.body.tagline + "',price='" + req.body.price + "',warranty='" + req.body.warranty + "',category_id= '" + req.body.category + "',brand_id= '" + req.body.brand + "',picture= '" + req.body.picture + "' WHERE product_id='" + userId + "' ");
   // res.render('createBrand');
-  res.redirect('/admin/product',{
-    layout:'main'
-  });
+  res.redirect('/admin/product');
 });
 
 
