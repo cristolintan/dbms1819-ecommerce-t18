@@ -5,26 +5,21 @@
           <div class="col-xl-9 mx-auto">
             <div class=" text-center rounded">
 
-<section class="content-header">
-      <h1>
-        Categories
-      </h1>
-    </section>
 
-
-		<div class="box box-success">
+    <div class="box box-success">
             <div class="box-header with-border">
               <h3 class="box-title">Categories List</h3>
-			  
+        
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <ul>
-			  {{#each data}}
-			  <li type="none">{{this.name}}</li>
-			  {{/each}}
-			  
-			  </ul>
+
+        {{#each data}}
+        <br>
+        <li type="none">{{this.name}}</li>
+        {{/each}}
+        
+
             </div>
             <!-- /.box-body -->
           </div>
@@ -32,7 +27,7 @@
             </div>
           </div>
         </div>
-
+<br><br>
         <div class="box-header with-border" align="center">
 <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='createcategory';" ">Create Category</span>
 </div>
@@ -40,5 +35,3 @@
   </div>
 
 </section>
-
-  

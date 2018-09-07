@@ -1,19 +1,10 @@
 <style>
   .grid{
   height: auto;
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-   
-    
   }
-  .grid:hover{
-  height: auto;
-    width: 100%;
-    background: linear-gradient(to right,#c17e26 , #fca22d);
-    border-radius: 25px;
-  }
-  
 </style>
 <section class="page-section cta">
   <div class="container center">
@@ -29,31 +20,41 @@
         <div class="box-body" align="center">
 
              
-    <div class="row ">
-     {{#each data}}
-                 
-                 
-      <div class="col-sm-6" background="color:red">
-       <a href=/admin/products/{{this.product_id}}><span font-size:4vw;> 
-         <div class="grid">  
-                  <ul type='none'>
-                  <li type="none" align="center"><p font-size:3vw; font-style:"none">{{this.name}}</p></li>
-                  <li type="none" align="center"><p font-size:3vw;>P {{this.price}}</p></li>
-                  <li type="none" align="center"><p font-size:2vw;>{{this.description}}</p></li>
-                  <li type="none" align="center"><img src="{{this.picture}}" class="img-responsive" width="100%" height="auto"></li>
-                  </div>
-                  </span></a>
-      </div>
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Picture</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Details</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+
+ {{#each data}}
+
+    <tr>
+     <td><div class="grid"> <img src="{{this.picture}}" class="img-fluid"></div></td>
+      <td><p font-size:3vw; font-style:"none">{{this.name}}</p></td>
+      <td><p font-size:3vw;>P {{this.price}}</p></td>
+      <td><p font-size:2vw;>{{this.description}}</p></td>
+      <td><span class="btn btn-sm btn-primary" id="addUserbtn" style="margin-right:5px" onclick="location.href='/admin/products/{{this.product_id}}';" ">View Product</span></td>
+    </tr>
+
       
       {{/each}}
-                  
-                  
-                 
-            </div>
+
+
+
+  </tbody>
+</table>
           </div>
         </div>
         <div class="box-header with-border" align="center">
-        <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='/admin/createproduct';" ">Create Product</span>
+        <span class="btn btn-sm btn-primary pull-right" id="addUserbtn" style="margin-right:5px" onclick="location.href='/admin/createproduct';" ">ADD Product</span>
   </div>
   </div>
 </section>

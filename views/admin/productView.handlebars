@@ -20,25 +20,26 @@
 
     <div class="box-body" >
       <div class="box-body box-profile">
-              <h3 >{{prod_name}}</h3>
-                <li >
+
+                <img src="{{prod_picture}}" class="img-fluid">
+
+                <li type="none">
                    <b>Price: </b> <a class="pull-right">P{{prod_price}}</a>
                 </li>
-                
-                <li >
+                <li type="none">
                   <b>Brand: </b> <a class="pull-right">{{brandname}}</a>
                 </li>
-                <li >
+                <li type="none">
                   <b>Category/Type: </b> <a class="pull-right">{{categoryname}}</a>
                 </li>
-                <li >
+                <li type="none">
                   <b>Description: </b> <a class="pull-right">{{prod_desc}}</a>
-                </li
+                </li>
 
-                <li class="list-group-item">
+                <li class="list-group-item" type="none">
                   <b>Tagline: </b> <a class="pull-right">{{prod_tagline}}</a>
                 </li>
-        <li class="list-group-item">
+        <li class="list-group-item" type="none">
                   <b>Warranty: </b> <a class="pull-right">{{prod_warranty}} days</a>
                 </li>
         </ul>
