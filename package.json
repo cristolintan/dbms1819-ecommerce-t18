@@ -10,7 +10,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged":{
-    "*.js":["enlist","git add"]
+    "*.js":["eslint","git add"]
   },
   "repository": {
     "type": "git",

@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
 // var id = null;
+
+const Brands = require('./models/brands');
+
 var { Client } = require('pg');
 var port = process.env.PORT || 3000;
 var client = new Client({
@@ -185,20 +188,17 @@ app.get('/admin/createbrand', function (req, res) {
 });
 
 app.post('/admin/brand/submit', function (req, res) {
-  console.log(req.body.name);
   client.query("INSERT INTO brands (name,description) VALUES ('" + req.body.name + "','" + req.body.description + "') ");
-  // res.render('createBrand');
   res.redirect('/admin/brands',{
     layout:'main'
   });
 });
 
 app.get('/admin/brands', function (req, res) {
-  client.query('SELECT * FROM brands ORDER BY brand_id ASC', (req, data1) => {
-    console.log(data1.rows);
+    Brands.list(client,{},function(brands) {
     res.render('admin/brands', {
       layout:'admin',
-      data: data1.rows
+      data: brands
     });
   });
 });
