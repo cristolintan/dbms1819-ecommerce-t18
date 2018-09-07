@@ -36,6 +36,21 @@ app.get('/', function (req, res) {
   
 });
 
+app.get('/login', function (req, res) {
+  res.render('login');
+});
+
+app.get('/signup', function (req, res) {
+  res.render('signup');
+});
+
+
+app.post('/signup', function (req, res) {
+  res.render('signup');
+  console.log('sign up data',req.body);
+});
+
+
 app.get('/admin', function (req, res) {
   var topcustomer = [];
   var top = [];

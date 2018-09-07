@@ -4,13 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "lint": "eslint app.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "lint-staged"
   },
-  "lint-staged":{
-    "*.js":["enlist","git add"]
+  "lint-staged": {
+    "*.js": [
+      "enlist",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -28,10 +31,14 @@
   "dependencies": {
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
     "node.js": "0.0.0",
     "nodemailer": "^4.6.8",
+    "nodemon": "^1.18.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.3",
     "replace-string": "^1.1.0",
     "string": "^3.3.3"
