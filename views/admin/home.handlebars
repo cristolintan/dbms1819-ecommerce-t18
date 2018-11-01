@@ -21,7 +21,7 @@
                   <th>Number of Orders</th>
                 </tr>
 
-               {{#each data}}
+               {{#each topCustomersMostOrder}}
                    <tr>
                   <td>{{this.first_name}} {{this.last_name}}</td>
                   <td>{{this.num_orders}}</td>
@@ -37,7 +37,7 @@
                   <th>Total Payment</th>
                 </tr>
 
-               {{#each data2}}
+               {{#each topCustomersHighestPayment}}
                    <tr>
                   <td>{{this.first_name}} {{this.last_name}}</td>
                   <td>{{this.totalprice}} PHP</td>
@@ -54,7 +54,7 @@
                   <th>Number of Orders</th>
                 </tr>
 
-               {{#each data3}}
+               {{#each mostOrderedProduct}}
                    <tr>
                   <td>{{this.name}}</td>
                   <td>{{this.num_orders}}</td>
@@ -73,7 +73,7 @@
                   <th>Number of Orders</th>
                 </tr>
 
-               {{#each data4}}
+               {{#each leastOrderedProduct}}
                    <tr>
                   <td>{{this.name}}</td>
                   <td>{{this.num_orders}}</td>
@@ -91,7 +91,7 @@
                   <th>Number of Orders</th>
                 </tr>
 
-               {{#each data5}}
+               {{#each mostOrderedBrand}}
                    <tr>
                   <td>{{this.name}}</td>
                   <td>{{this.num_orders}}</td>
@@ -109,7 +109,7 @@
                   <th>Number of Orders</th>
                 </tr>
 
-               {{#each data6}}
+               {{#each mostOrderedCategory}}
                    <tr>
                   <td>{{this.name}}</td>
                   <td>{{this.num_orders}}</td>

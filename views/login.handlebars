@@ -1,16 +1,26 @@
-<div style="margin: auto; width:100%">
- <div style="margin: auto; widht:200px;">
-
-<form action="login" method="POST" accept-charset="utf"-8>
-<div>
-<input type="email" name="email" placeholder="Email Address">
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <main role="main" class="col-md-6 mx-auto col-lg-6 pt-3 px-4" style="border: 2px solid gray; border-radius: 20px">
+      <h2 class="white-text text-center">LOGIN</h2><hr>
+      <div class="modal-body mx-auto white-text" style="width: 80%">
+        <form method="post" action="/login">
+            Email
+            <div class="form-group">
+              <input type="email" class="form-control" id="name" placeholder="Email" name="email" required>
+            </div>
+            Password <br>
+            <div class="form-group">
+              <input type="password" class="form-control" id="name" placeholder="Password" name="password" required>
+            </div>
+            <h6 style="text-align: right">
+              <a href="forgotpassword"> Forgot Password?</a>
+            </h6>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;LOGIN</button>
+            </div>
+        </form>
+      </div>
+    </main>
+  </div>
 </div>
-<div>
-<input type="password" name="password" placeholder="Password">
-</div>
-<div>
-<input type="submit">
-</div>
-
-</div>
-<div>

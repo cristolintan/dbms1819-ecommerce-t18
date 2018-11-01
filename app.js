@@ -4,7 +4,13 @@ var nodeMailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
+
 // var id = null;
+const Brand = require('./models/brands');
+const Product = require('./models/products');
+const Category = require('./models/category');
+const Customer = require('./models/customer');
+
 var { Client } = require('pg');
 var port = process.env.PORT || 3000;
 var client = new Client({
@@ -16,6 +22,7 @@ var client = new Client({
   port: 5432,
   ssl: true
 });
+
 
 // connect to database
 client.connect()
@@ -52,6 +59,12 @@ app.post('/signup', function (req, res) {
 
 
 app.get('/admin', function (req, res) {
+  var mostOrderedBrand;
+  var mostOrderedCategory;
+  var mostOrderedProduct;
+  var leastOrderedProduct;
+  var topCustomersMostOrder;
+  var topCustomersHighestPayment;
   var topcustomer = [];
   var top = [];
   var top = [];
@@ -61,52 +74,73 @@ app.get('/admin', function (req, res) {
   var top = [];
   var top = [];
 
+Customer.topCustomersMostOrder(client, {}, function (result) {
+    topCustomersMostOrder = result;
+  });
+Customer.topCustomersHighestPayment(client, {}, function (result) {
+    topCustomersHighestPayment = result;
+  });
+Brand.mostOrderedBrand(client, {}, function (result) {
+    mostOrderedBrand = result;
+  });
+  Category.mostOrderedCategory(client, {}, function (result) {
+    mostOrderedCategory = result;
+  });
+    Product.mostOrderedProduct(client, {}, function (result) {
+    mostOrderedProduct = result;
+  });
+    Product.leastOrderedProduct(client, {}, function (result) {
+    leastOrderedProduct = result;
 
-client.query('SELECT first_name,last_name,COUNT(orders.orders_id) AS num_orders FROM customer INNER JOIN orders ON customer.customer_id = orders.customer_id GROUP BY orders.customer_id,customer.customer_id ORDER BY num_orders DESC LIMIT 10', (req, top1) => {
-client.query('SELECT first_name,last_name,SUM(products.price) AS totalprice FROM ((customer INNER JOIN orders ON customer.customer_id = orders.customer_id) INNER JOIN products ON products.product_id = orders.product_id) GROUP BY customer.customer_id ORDER BY totalprice DESC LIMIT 10;', (req, top2) => {
-client.query('SELECT name,SUM(orders.quantity) AS num_orders FROM products INNER JOIN orders ON products.product_id = orders.product_id GROUP BY orders.product_id,products.product_id ORDER BY num_orders DESC LIMIT 10', (req, top3) => {
-client.query('SELECT name,SUM(orders.quantity) AS num_orders FROM products INNER JOIN orders ON products.product_id = orders.product_id GROUP BY orders.product_id,products.product_id ORDER BY num_orders ASC LIMIT 10', (req, top4) => {    
-client.query('SELECT brands.name,SUM(orders.quantity) AS num_orders FROM ((brands INNER JOIN products ON brands.brand_id = products.brand_id) INNER JOIN orders ON orders.product_id = products.product_id) GROUP BY brands.brand_id ORDER BY num_orders DESC LIMIT 3', (req, top5) => {
-client.query('SELECT products_category.name,SUM(orders.quantity) AS num_orders FROM ((products_category INNER JOIN products ON products_category.category_id = products.category_id) INNER JOIN orders ON orders.product_id = products.product_id) GROUP BY products_category.category_id ORDER BY num_orders DESC LIMIT 3', (req, top6) => {
-    
-    console.log(top4.rows);
     res.render('admin/home', {
       layout:'admin',
-      data: top1.rows,
-      data2: top2.rows,
-      data3: top3.rows,
-      data4: top4.rows,
-      data5: top5.rows,
-      data6: top6.rows
-
+      mostOrderedBrand: mostOrderedBrand,
+      mostOrderedCategory: mostOrderedCategory,
+      mostOrderedProduct: mostOrderedProduct,
+      leastOrderedProduct: leastOrderedProduct,
+      topCustomersMostOrder: topCustomersMostOrder,
+      topCustomersHighestPayment: topCustomersHighestPayment
     });
-    
-    });
-    });
-    });
-   });
-  });
- }); 
 
 });
   
+});
 
 
+//app.get('/client/product', function (req, res) {
+//  client.query('SELECT * FROM products', (req, data1) => {
+//    res.render('client/product', {
+//    	layout:'main',
+//      data: data1.rows
+//    });
+//  });
+//});
 
-app.get('/client/product', function (req, res) {
-  client.query('SELECT * FROM products', (req, data1) => {
-    res.render('client/product', {
-    	layout:'main',
-      data: data1.rows
+app.get('/client/product',(req, res) => {
+  Product.list(client,{},function(product){
+    res.render('client/product',{
+      layout:'main' ,
+      product: product
     });
   });
 });
 
-app.get('/admin/product', function (req, res) {
-  client.query('SELECT * FROM products', (req, data1) => {
-    res.render('admin/product', {
-    	layout:'admin',
-      data: data1.rows
+//app.get('/admin/product', function (req, res) {
+//  client.query('SELECT * FROM products', (req, data1) => {
+//    res.render('admin/product', {
+//    	layout:'admin',
+//      data: data1.rows
+//    });
+//  });
+//});
+
+
+
+app.get('/admin/product',(req, res) => {
+  Product.list(client,{},function(product){
+    res.render('admin/product',{
+      layout:'admin',
+      product: product
     });
   });
 });
@@ -212,29 +246,29 @@ app.get('/admin/products/:userId', function (req, res) {
 
 
 
-// app.post('/send-email/:userId', function (req, res) {
-// const userId = req.params.userId;
-//   client.query("INSERT INTO customer (name,email,first_name,last_name,street,municipality,province,zipcode) VALUES ('"+req.body.name+"') ");
-// res.render('createBrand');
-// res.redirect('/categories');
-// });
+ app.post('/send-email/:userId', function (req, res) {
+ const userId = req.params.userId;
+   client.query("INSERT INTO customer (name,email,first_name,last_name,street,municipality,province,zipcode) VALUES ('"+req.body.name+"') ");
+ res.render('createBrand');
+ res.redirect('/categories');
+ });
 
-app.get('/client/brands', function (req, res) {
-  client.query('SELECT * FROM brands ORDER BY brand_id ASC', (req, data1) => {
-    console.log(data1.rows);
-    res.render('client/brands', {
-      layout:'main',
-      data: data1.rows
+
+
+app.get('/admin/brands', function (req, res) {
+  Brand.list(client,{},function(brands){
+    res.render('admin/brands',{
+      layout:'admin',
+      brands: brands
     });
   });
 });
 
-app.get('/admin/brands', function (req, res) {
-  client.query('SELECT * FROM brands ORDER BY brand_id ASC', (req, data1) => {
-    console.log(data1.rows);
-    res.render('admin/brands', {
-      layout:'admin',
-      data: data1.rows
+app.get('/client/brands', function (req, res) {
+  Brand.list(client,{},function(brands){
+    res.render('client/brands',{
+      layout:'main',
+      brands: brands
     });
   });
 });
@@ -248,31 +282,39 @@ app.get('/admin/createbrand', function (req, res) {
 
 app.post('/admin/brand/submit', function (req, res) {
   console.log(req.body.name);
-  client.query("INSERT INTO brands (name,description) VALUES ('" + req.body.name + "','" + req.body.description + "') ");
-  // res.render('createBrand');
+  client.query("INSERT INTO brands (name,description) VALUES ('" + req.body.name + "','" + req.body.description + "')ON CONFLICT (name) DO NOTHING; ");
+   //res.render('createBrand');
   res.redirect('/admin/brands');
 });
 
 
-app.get('/client/categories', function (req, res) {
-  client.query('SELECT * FROM products_category ORDER BY category_id ASC', (req, data1) => {
-    console.log(data1.rows);
-    res.render('client/categories', {
+app.get('/client/categories',function (req, res) {
+  Category.list(client,{},function(category){
+    res.render('client/categories',{
       layout:'main',
-      data: data1.rows
+      category: category
     });
   });
-});
+})
 
-app.get('/admin/categories', function (req, res) {
-  client.query('SELECT * FROM products_category ORDER BY category_id ASC', (req, data1) => {
-    console.log(data1.rows);
-    res.render('admin/categories', {
+//app.get('/admin/categories', function (req, res) {
+//  client.query('SELECT * FROM products_category ORDER BY category_id ASC', (req, data1) => {
+//    console.log(data1.rows);
+//    res.render('admin/categories', {
+//      layout:'admin',
+//      data: data1.rows
+//    });
+//  });
+//});
+
+app.get('/admin/categories',function (req, res) {
+  Category.list(client,{},function(category){
+    res.render('admin/categories',{
       layout:'admin',
-      data: data1.rows
+      category: category
     });
   });
-});
+})
 
 app.get('/admin/createcategory', function (req, res) {
   res.render('admin/createCategory',{
@@ -282,7 +324,7 @@ app.get('/admin/createcategory', function (req, res) {
 
 app.post('/admin/category/submit', function (req, res) {
   console.log(req.body.name);
-  client.query("INSERT INTO products_category (name) VALUES ('" + req.body.name + "') ");
+  client.query("INSERT INTO products_category (name) VALUES ('" + req.body.name + "') ON CONFLICT (brand_name) DO NOTHING;");
   res.redirect('/admin/categories');
 });
 
@@ -312,7 +354,7 @@ app.get('/admin/createproduct', function (req, res) {
 });
 
 app.post('/admin/product/submit', function (req, res) {
-  client.query("INSERT INTO products (name,description,tagline,price,warranty,category_id,brand_id,picture) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.tagline + "','" + req.body.price + "','" + req.body.warranty + "','" + req.body.category + "','" + req.body.brand + "','" + req.body.picture + "') ");
+  client.query("INSERT INTO products (name,description,tagline,price,warranty,category_id,brand_id,picture) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.tagline + "','" + req.body.price + "','" + req.body.warranty + "','" + req.body.category + "','" + req.body.brand + "','" + req.body.picture + "')ON CONFLICT (brand_name) DO NOTHING; ");
   res.redirect('/admin/product');
 });
 
